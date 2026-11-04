@@ -1,0 +1,13 @@
+// Metodos que não encontrei a classe ainda
+
+// Eventos do setor novo
+
+    //Gera inimigos no setor
+
+        //Sorteia número de inimigos
+
+        //Para cada inimigo
+
+            //Sorteia seus atributos
+
+            //Cria inimigos

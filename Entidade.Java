@@ -1,4 +1,4 @@
-public class Entidade { //Q: Ou interface?
+public class Entidade {
 
     protected int ataque;
     protected int defesa;

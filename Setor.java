@@ -19,7 +19,7 @@ public class Setor {
 
     private int status;
 
-    //private coordenada;
+    private Coordenada posicao;
 
     private int tipo;
 

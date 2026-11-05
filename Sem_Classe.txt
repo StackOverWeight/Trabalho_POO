@@ -10,4 +10,6 @@
 
             //Sorteia seus atributos
 
-            //Cria inimigos
+            //Cria inimigo e add na lista
+
+    //Torna portas visíveis -> Q: "Atualização aqui ou fora?"

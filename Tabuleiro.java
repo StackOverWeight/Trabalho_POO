@@ -1,6 +1,6 @@
 public class Tabuleiro {
     private Setor[][] tabuleiro
-    //private Coordenada fonte_infeccao;
+    private Coordenada fonte_infeccao;
 
     public Tabuleiro {
         //Criar matriz 5x5 de Setor

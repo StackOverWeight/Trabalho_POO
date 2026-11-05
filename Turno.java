@@ -2,17 +2,15 @@ public class Turno {
 
     //Pontos de discordância
         //Lê entrada e trata erros?
-        //Verificação de tipo de setor
         //Eventos de setor novo
         //...
 
     /* Opção 1 */
-        //Lê entrada e trata erros
-        //Verificação de tipo de setor
-        //Cria eventos de setor novo
-        //...
+    //Lê entrada e trata erros
+    //Cria eventos de setor novo
+    //...
 
-    //Turno (P1)
+    //Turno (P1, Setor)
 
         //Ler entrada (Movimentar, Procurar ou Atacar)
 
@@ -26,7 +24,13 @@ public class Turno {
 
             //Se setor == ocupado: pode atacar e procurar
 
-        //Se usuario quer atacar: Atacar
+            //Se setor == Privado: não pode procurar
+
+        //Se usuario quer atacar: 
+        
+            //Se setor for oculto: Sorteia ataque
+
+                //Atacar
 
         //Se não, se escolheu procurar: Procurar
 

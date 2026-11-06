@@ -6,5 +6,11 @@ public class Entidade {
 
     //public atacar (adversario)
 
-        //adversario.defesa -= this.ataque -> Q: método Set e get de adversario?
+        //adversario.defesa -= this.ataque   |   Q: método Set e get de adversario?
+
+    //estaVivo()
+
+        //this.def <= 0?
+
+    /* Q: Métodos get e set  */
 }

@@ -8,10 +8,12 @@ public class Jogador extends Entidade { //Q: Ou implements?
 
         //this.defesa = DEF_P_SIMPLES (6)
 
-    /* Opção 1: Verificação de setor dentro de Jogador ======================== */
-    //Aqui, classe jogador tem relação com setor
+    /* ATACAR ------------------------------ */
 
-    //Atacar (setor)
+    /* Opção 1 ============================= */
+    //Verificação de setor oculto dentro de atacar
+
+    //Atacar (inimigo, setor)
 
         //Se setor for oculto
 
@@ -22,48 +24,57 @@ public class Jogador extends Entidade { //Q: Ou implements?
         //Caso contrário
 
             //ataque (igual herdado)
+    
+    /* Opção 2 ============================= */
+    //Só herda atacar
 
-    //Opção 1: Eventos de setor novo verificado e chamado aqui
+    /* ------------------------------------- */
+
+    /* MOVIMENTAR -------------------------- */
+
+    /* Opção 1 ============================= */ 
+    //Eventos de setor novo verificado e chamado aqui
+
     //Movimentar (setor)
 
         // Troca coordenada do jogador: this.setCoordenada(setor.getCoordenada())
 
         // Se setor é novo: eventos de setor novo
 
-    //Opção 2: Eventos de setor novo verificado e chamado fora daqui
+    /* Opção 2 ============================ */ 
+    //Eventos de setor novo verificado e chamado fora em turno
+    
     //Movimentar (setor)
 
         // Troca coordenada do jogador: this.setCoordenada(setor.getCoordenada())
 
+    /* Opção 3 ============================ */ 
+    //Se relação com setor não for estritamente necessária 
 
+    //Movimentar(Coordenada)
 
-    //!! Verificação de procurar em turno (se for setor privado não pode e não entra aqui)
+        //this.SetCoordenada(Coordenada)
 
-    // procurar (setor, P2)
+    /* ------------------------------------ */
 
-        // Toda a lógica de procurar
+    /* PROCURAR --------------------------- */
+    //Como que esse método alcançará os inimigos do setor?
 
-            //Setor: para atingir inimigos
+    /* Opção 1 ============================ */
+    //Alcança inimigos através do setor
 
-            //Alcança o outro jogador pelo argumento -> Q: Parece estranho isso
+    // procurar (P2, Setor)
 
+        // Toda a lógica de procurar - bem explicada no docs do trabalho
 
-    /* Opção 2: Verificação de setor fora de Jogador ======================= */
-    //Aqui, classe jogador independente
-    
-    //Atacar() => igual entidade
+        // Alcança o outro jogador pelo argumento   |   Q: Parece estranho isso
+
+    /* Opção 2 ============================ */
+    //Alcança inimigos através da lista de inimigos
 
     //Procurar (Lista de inimigos, P2)
 
         // Mesma coisa, mas atingindo inimigos através da lista
 
-    //Movimentar(int x, int y)
-    //Eventos de novo evento visitado fora de jogador
-
-        //this.SetCoordenada(x, y)
-
-
-
-
-
+    /* ------------------------------------ */
 }

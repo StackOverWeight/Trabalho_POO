@@ -14,7 +14,7 @@ public class Tabuleiro {
 
                 //paredes vizinhas devem fazer sentido
 
-                //Não deve existir portas nas bordas
+                //Não deve existir portas nas bordas do tabuleiro
     }
 
 }

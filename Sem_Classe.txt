@@ -1,8 +1,12 @@
-// Metodos que não encontrei a classe ainda
+// Metodos que não tenho certeza da classe ainda
 
 // Eventos do setor novo
+// Provavelmente na classe setor, mas pode ser dentro de turno
 
     //Gera inimigos no setor
+
+        //instância nova lista
+        setor.inimigos = new Linkedlist<>()
 
         //Sorteia número de inimigos
 
@@ -11,5 +15,9 @@
             //Sorteia seus atributos
 
             //Cria inimigo e add na lista
+
+                Inimigo inimigo = new Inimigo(atributos sorteados)
+
+                setor.inimigos.add(inimigo);
 
     //Torna portas visíveis -> Q: "Atualização aqui ou fora?"

@@ -1,40 +1,43 @@
 public class JogadorSuporte extends Jogador {
     //construct
 
-        //this.pos = posição do centro -> Q: rep. de código?
+        //this.pos = posição do centro    |    Q: rep. de código?
 
         //this.ataque = ATK_P_SUPORTE (1)
 
         //this.defesa = DEF_P_SUPORTE (7)
 
+
     //Procurar(..., P1)
 
-        //Sobrescrição: igual Jogador simples, mas implementação diferentece quem recebe def.  
+        //Sobrescrição: igual Jogador simples, mas implementação diferentece quem recebe def.    |   Q: esquisito isso
 
-    //METODO RECUPERAR - OPÇÕES
+    /* RECUPERAR --------------------------------- */ 
 
-    //Opção 1: Verificação de mesmo setor aqui + verificação qual jogador
-    //recuperar(jogador simples, "setor[não necessário]")
+    //Opção 1 ====================================
+    //Verificação de mesmo setor aqui + verificação qual jogador
 
-        //Se estão no mesmo setor
+    //recuperar(P1)
 
-            //Escolhe qual jogador deve ser recuperado
+        //Verifica se jogador P1 está vivo e está no mesmo setor
 
-                //Recupera jogador escolhido
+            //Escolhe jogador a ser recuperado
 
-        //Se não estão
+            //P1 escolhido
 
-            //Recupera o suporte
+                //Recuperar o P1
 
-    //Opção 2: Verificação de setor fora + verificação qual jogador
-    //recuperar (jogador simples)
+            //P2 escolhido
 
-        //Escolhe qual jogador deve ser recuperado
+                //Recuperar o P2
 
-            //Recupera jogador escolhido
+        //Se P1 não pode ser recuperado
 
+            //Recuperar o P2
 
-    //Opção 3: Verificação de setor fora daqui + polimorfismo de sobrecarga (verificação de jogador fora)
+    //Opção 2 =======================================
+    //Verificação de setor  + polimorfismo de sobrecarga (verificação de jogador fora)
+
     //recuperar()
 
         //recupera suporte

@@ -1,15 +1,4 @@
 public class Turno {
-
-    //Pontos de discordância
-        //Lê entrada e trata erros?
-        //Eventos de setor novo
-        //...
-
-    /* Opção 1 */
-    //Lê entrada e trata erros
-    //Cria eventos de setor novo
-    //...
-
     //Turno (P1, Setor)
 
         //Ler entrada (Movimentar, Procurar ou Atacar)
@@ -26,39 +15,79 @@ public class Turno {
 
             //Se setor == Privado: não pode procurar
 
+            //...
+
         //Se usuario quer atacar: 
         
             //Se setor for oculto: Sorteia ataque
 
-                //Atacar
+                //Lê inimigo escolhido
+
+                    //Caso de erro
+
+                //Atacar(Inimigo escolhido)
 
         //Se não, se escolheu procurar: Procurar
 
-        //Se não, se escolheu movimentar: Movimentnar
+        //Se não, se escolheu movimentar: 
+            
+            //lê posição para se movimentar
 
-            //!Se setor é novo
+            //É válido?
+
+                //Movimentar(Próximo Setor)
+
+            /*Opção ============================== */
+            //Ou os eventos do setor novo é realizado aqui ou dentro da função movimentar
+
+            //Se setor é novo
     
                 //Eventos de novo setor visitado
 
-    //Turno (P2)
+            /* ==================================== */
 
-        //Tudo igual ao turno do jogador P2 +
+    //Turno (P1, P2, Setor)
 
-        //Se não, se escolheu recuperar
+        //Tudo praticamente igual ao turno do jogador P2 +  |  Q: Repetição de código? 
 
-            //Opção 1: Verificação de P1 aqui
+        //Se não, se escolheu recuperar:
+
+            /* Opção 1 ================================*/ 
+            //Verificação de P1 aqui
+            //Consequência: Dá para fazer um polimorfismo de sobrecarga em recuperar do P2
 
                 //Verifica se jogador P1 está vivo e está no setor
 
-                    //Escolhe qual jogador
+                    //Escolhe jogador a ser recuperado
 
-                        //Recupera escolhido
+                    //P1 escolhido
 
-            //Opção 2: Verificação de P1 encapsulada
+                        //Recuperar(P1)
+
+                    //P2 escolhido
+
+                        //Recuperar()
+
+                //Se P1 não pode ser recuperado
+
+                    //Recuperar()
+
+            /* Opção 2 ================================*/ 
+            //Verificação de P1 encapsulada dentro de recuperar
 
                 //Recupera(P1)
 
-    //Turno do Inimigo -> Q: Ou inverte? 1 - turno do inimigo / 2 - Para cada jogador...
+    //Turno (Jogador, Inimigo) //Turno do inimigo
 
-        //Atacar (de forma totalmente diferente)
+        /* Opção 1 =================================== */
+
+        //Sorteia o ataque
+
+            //Inimigo.Atacar(Jogador)
+
+        /* Opção 2 =================================== */
+        //Sorteio dentro de ataque encapsulado em inimigo
+
+        //Inimigo.Atacar(Jogador)
+
 }

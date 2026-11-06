@@ -23,15 +23,12 @@ public class Setor {
 
     private int tipo;
 
-    //lista de inimigos
+    private List<Inimigo> inimigos; //Q: Não sei se é assim exatamente
 
     public Setor(/*Definição de Portas*/) {
         //Definir portas
 
         this.status = this.Tipo.NaoVisitado //Q: Não sei se é assim que acessa
-
-         
-
     }
 
     /* Métodos get e set */

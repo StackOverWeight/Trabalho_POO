@@ -1,24 +1,17 @@
-public class Inimigo {
-    private int ataque;
-    private int defesa;
+import java.util.Random;
 
+public class Inimigo extends Entidade implements Atacante{
     // Bruno: fiz a estrutura da classe pois preciso que seja assim
-    public Inimigo(int ataque, int defesa) {
-        this.ataque = ataque;
-        this.defesa = defesa;
+    public Inimigo(int ataque, int defesa){
+        super(ataque, defesa);
     }
 
-    public int getAtaque() {
-        return this.ataque;
-    }
-
-    public int getDefesa() {
-        return this.defesa;
-    }
-
-    public int atacar() {
-        // return 0 provisório para compilar
-        return 0; // Sortear e retornar o valor do ataque.
+    @Override
+    public void atacar(Entidade alvo, Setor setor) {
+        Random aleat = new Random();
+        int num = aleat.nextInt(1, 7);
+        if(num % 2 == 0) 
+            alvo.setDefesa(alvo.getDefesa() - this.getAtaque());
     }
 
 

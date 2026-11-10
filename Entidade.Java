@@ -1,16 +1,33 @@
-public class Entidade {
+public abstract class Entidade {
 
     protected int ataque;
     protected int defesa;
-    protected Coordendada posicao;
 
-    //public atacar (adversario)
+    public Entidade(int ataque, int defesa){
+        this.ataque = ataque;
+        this.defesa = defesa;
+    }
 
-        //adversario.defesa -= this.ataque   |   Q: método Set e get de adversario?
+    public boolean estaVivo(){
+        if(this.defesa > 0)
+            return true;
 
-    //estaVivo()
+        return false;
+    }
 
-        //this.def <= 0?
+    public void setAtaque(int ataque){
+        this.ataque = ataque;
+    }
 
-    /* Q: Métodos get e set  */
+    public void setDefesa(int defesa){
+        this.defesa = defesa;
+    }
+
+    public int getAtaque(){
+        return this.ataque;
+    }
+
+    public int getDefesa(){
+        return this.defesa;
+    }
 }

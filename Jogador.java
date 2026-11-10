@@ -1,5 +1,7 @@
-public class Jogador extends Entidade { //Q: Ou implements?
+import java.util.Random;
+public class Jogador extends Entidade implements Atacante{ //Q: Ou implements?
 
+    private Coordenada posicao;
     //construct
 
         //this.pos = posição do centro
@@ -8,10 +10,26 @@ public class Jogador extends Entidade { //Q: Ou implements?
 
         //this.defesa = DEF_P_SIMPLES (6)
 
-    /* ATACAR ------------------------------ */
+    public Jogador(){
+        super(2, 6);
+        this.posicao = new Coordenada((byte) 3, (byte) 3);
+    }
 
+    protected Jogador(int ataque, int defesa, Coordenada posicao){
+        super(ataque, defesa);
+        this.posicao = posicao;
+    }
+
+    public Coordenada getPosicao(){
+        return this.posicao;
+    }
+
+    public void setPosicao(Coordenada posicao){
+        this.posicao = posicao;
+    }
     /* Opção 1 ============================= */
     //Verificação de setor oculto dentro de atacar
+
 
     //Atacar (inimigo, setor)
 
@@ -24,6 +42,18 @@ public class Jogador extends Entidade { //Q: Ou implements?
         //Caso contrário
 
             //ataque (igual herdado)
+
+    @Override
+    public void atacar(Entidade alvo, Setor setor){
+        if(setor.getTipo() == TipoSetor.Oculto){
+            Random aleat = new Random();
+            int num = aleat.nextInt(1,7);
+
+            if(num % 2 != 0)
+                return;
+        }
+        alvo.setDefesa(alvo.getDefesa() - this.getAtaque());
+    }
     
     /* Opção 2 ============================= */
     //Só herda atacar
@@ -57,6 +87,10 @@ public class Jogador extends Entidade { //Q: Ou implements?
 
     /* ------------------------------------ */
 
+    public void movimentar(Setor setor){
+        this.setPosicao(setor.getCoordenada());
+    }
+
     /* PROCURAR --------------------------- */
     //Como que esse método alcançará os inimigos do setor?
 
@@ -77,4 +111,24 @@ public class Jogador extends Entidade { //Q: Ou implements?
         // Mesma coisa, mas atingindo inimigos através da lista
 
     /* ------------------------------------ */
+    public void procurar(Setor setor){
+        if(setor.getTipo() == TipoSetor.Privado)
+            return;
+
+        Random aleat = new Random();
+        int num = aleat.nextInt(1, 7);
+        switch(num){
+        case 6:
+            for(Inimigo inimigo : setor.getInimigos())
+                inimigo.setDefesa(inimigo.getDefesa() - 1);
+            break;
+        case 5:
+            this.setDefesa(this.getDefesa() + 2);
+            break;
+        case 4:
+            this.setDefesa(this.getDefesa() + 1);
+            break;
+        default:
+        }
+    }
 }

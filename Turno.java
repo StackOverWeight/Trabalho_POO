@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
+// Controla os turnos: le a entrada do usuario, valida as acoes e chama os metodos
+// dos jogadores e inimigos. Guarda o vencedor e as mensagens de resultado
 public class Turno {
+
+    // Constantes
+    private static final int ACOES_POR_TURNO = 2;
 
     // Atributos
     private Tabuleiro tabuleiro;
@@ -34,17 +39,16 @@ public class Turno {
         return this.vencedor;
     }
 
-    // Turno de um jogador (P1 ou P2): duas acoes
+    // Metodos publicos
+    // Turno de um jogador (P1 ou P2): duas acoes. Acao invalida nao e contada
     public void turnoJogador(Jogador jogador) {
         int acoes = 0;
 
-        while (acoes < 2 && jogador.estaVivo() && this.vencedor == null) {
-            this.graficos.imprimirJogo();
-            System.out.print(this.mensagem);
-            this.mensagem = "";
+        while (acoes < ACOES_POR_TURNO && jogador.estaVivo() && this.vencedor == null) {
+            this.mostrarTela();
 
             System.out.println();
-            System.out.println("Vez de " + this.nome(jogador) + " - acao " + (acoes + 1) + " de 2");
+            System.out.println("Vez de " + this.nome(jogador) + " - acao " + (acoes + 1) + " de " + ACOES_POR_TURNO);
             System.out.println("1 - Atacar");
             System.out.println("2 - Procurar");
             System.out.println("3 - Movimentar");
@@ -56,7 +60,6 @@ public class Turno {
             System.out.print("Escolha: ");
             String opcao = this.lerEntrada();
 
-            // Acao invalida nao e contada
             if (this.executarAcao(jogador, opcao)) {
                 acoes++;
             }
@@ -83,6 +86,19 @@ public class Turno {
         }
     }
 
+    // Redesenha a tela e mostra as mensagens que ainda nao foram exibidas
+    public void mostrarTela() {
+        this.graficos.imprimirJogo();
+        System.out.print(this.mensagem);
+        this.mensagem = "";
+    }
+
+    // Fecha a leitura do teclado (chamar uma vez, no fim do jogo)
+    public void encerrar() {
+        this.entrada.close();
+    }
+
+    // Metodos privados
     // Escolhe a acao. Devolve true se a acao foi realizada
     private boolean executarAcao(Jogador jogador, String opcao) {
         switch (opcao) {
@@ -128,7 +144,7 @@ public class Turno {
         System.out.print("Qual inimigo atacar? ");
         String escolha = this.lerEntrada();
 
-        // Procura o inimigo escolhido
+        // Procura o inimigo escolhido (comparando texto: letras nao quebram o programa)
         Inimigo alvo = null;
         numero = 1;
         for (Inimigo inimigo : setor.getInimigos()) {
@@ -166,6 +182,7 @@ public class Turno {
             return false;
         }
 
+        // Compara antes e depois para saber qual item foi encontrado
         int defesaAntes = jogador.getDefesa();
         int defesaInimigosAntes = this.somaDefesaInimigos(setor);
 
@@ -233,6 +250,7 @@ public class Turno {
 
         jogador.movimentar(this.tabuleiro.getSetor(novaPosicao));
 
+        // Entrou no X: vence o jogo
         if (this.tabuleiro.ehFonteInfeccao(novaPosicao)) {
             this.vencedor = jogador;
             return true;
@@ -255,17 +273,17 @@ public class Turno {
         switch (escolha) {
             case "1":
                 this.p2.recuperar(this.p2);
-                this.mensagem = "P2 recuperou 2 de DEF.\n";
+                this.mensagem = "P2 recuperou " + JogadorSuporte.BONUS_RECUPERACAO + " de DEF.\n";
                 return true;
 
             case "2":
-                if (!this.p1.estaVivo() || !this.p1.getPosicao().comparaCoordenadas(this.p2.getPosicao())) {
+                if (!this.p1.estaVivo() || !this.p1.getPosicao().compararCoordenadas(this.p2.getPosicao())) {
                     this.mensagem = "P1 precisa estar vivo e no mesmo setor que P2.\n";
                     return false;
                 }
 
                 this.p2.recuperar(this.p1);
-                this.mensagem = "P2 recuperou 2 de DEF de P1.\n";
+                this.mensagem = "P2 recuperou " + JogadorSuporte.BONUS_RECUPERACAO + " de DEF de P1.\n";
                 return true;
 
             default:
@@ -316,10 +334,5 @@ public class Turno {
     // Le uma linha digitada pelo usuario
     private String lerEntrada() {
         return this.entrada.nextLine();
-    }
-
-    // Fecha a leitura do teclado (chamar uma vez, no fim do jogo)
-    public void encerrar() {
-        this.entrada.close();
     }
 }

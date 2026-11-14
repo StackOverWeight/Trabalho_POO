@@ -1,4 +1,13 @@
+// Desenha o jogo no terminal: tabuleiro + painel do setor de cada jogador.
+// So le o estado do jogo (metodos get); nunca altera tabuleiro, jogadores ou inimigos
 public class Graficos {
+
+    // Constantes
+    // Largura (em caracteres) de uma linha do painel de setor
+    private static final int LARGURA_PAINEL = 15;
+
+    // Ultima linha do painel (o painel ocupa as linhas 0 a 8 ao lado do tabuleiro)
+    private static final int ULTIMA_LINHA_PAINEL = 8;
 
     // Atributos
     private Tabuleiro tabuleiro;
@@ -14,13 +23,8 @@ public class Graficos {
         this.p2 = p2;
     }
 
-    private void limparTela() {
-        // Limpa o ecra e move o cursor para o canto superior esquerdo
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    // Imprimir jogo (tabuleiro)
+    // Metodos publicos
+    // Limpa a tela e imprime o tabuleiro inteiro com os paineis
     public void imprimirJogo() {
         this.limparTela();
 
@@ -44,16 +48,23 @@ public class Graficos {
 
         // Linhas do tabuleiro
         for (int y = 0; y < Tabuleiro.TAMANHO; y++) {
-            this.imprimeColunas(y);
-            this.imprimeLinha(y);
+            this.imprimirColunas(y);
+            this.imprimirLinha(y);
         }
 
         // Volta as cores normais do terminal
         System.out.print(Cores.ANSI_RESET);
     }
 
-    // Imprime colunas(tabuleiro, linha): conteudo dos setores + portas/paredes laterais
-    private void imprimeColunas(int linha) {
+    // Metodos privados
+    // Limpa a tela e move o cursor para o canto superior esquerdo
+    private void limparTela() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    // Conteudo dos setores de uma linha + portas/paredes laterais
+    private void imprimirColunas(int linha) {
         System.out.print((linha + 1) + "   |");
 
         for (int x = 0; x < Tabuleiro.TAMANHO; x++) {
@@ -66,11 +77,11 @@ public class Graficos {
             }
         }
 
-        this.imprimePaineis(linha * 2);
+        this.imprimirPaineis(linha * 2);
     }
 
-    // Imprime linha(tabuleiro, linha): borda inferior da linha + portas para o Sul
-    private void imprimeLinha(int linha) {
+    // Borda inferior de uma linha + portas para o Sul
+    private void imprimirLinha(int linha) {
         System.out.print("    |");
 
         for (int x = 0; x < Tabuleiro.TAMANHO; x++) {
@@ -85,16 +96,44 @@ public class Graficos {
             System.out.print("-|");
         }
 
-        this.imprimePaineis(linha * 2 + 1);
+        this.imprimirPaineis(linha * 2 + 1);
     }
 
-    // Conteudo de um setor (sempre 3 caracteres)
+    // Imprime ao lado do tabuleiro uma linha do(s) painel(is) de setor
+    private void imprimirPaineis(int linhaPainel) {
+        if (linhaPainel <= ULTIMA_LINHA_PAINEL) {
+            Coordenada posicaoP1 = this.p1.getPosicao();
+            Coordenada posicaoP2 = this.p2.getPosicao();
+
+            // Jogador eliminado nao tem painel
+            boolean p1Vivo = this.p1.estaVivo();
+            boolean p2Vivo = this.p2.estaVivo();
+
+            if (p1Vivo && p2Vivo && posicaoP1.compararCoordenadas(posicaoP2)) {
+                // Os dois jogadores no mesmo setor: um painel so
+                System.out.print("     " + this.linhaPainel(posicaoP1, linhaPainel, true, true));
+            } else {
+                // Setores diferentes: um painel para cada jogador vivo
+                if (p1Vivo) {
+                    System.out.print("     " + this.linhaPainel(posicaoP1, linhaPainel, true, false));
+                }
+
+                if (p2Vivo) {
+                    System.out.print("     " + this.linhaPainel(posicaoP2, linhaPainel, false, true));
+                }
+            }
+        }
+
+        System.out.println();
+    }
+
+    // Conteudo de um setor no tabuleiro (sempre 3 caracteres)
     private String conteudoSetor(int x, int y) {
         Coordenada coordenada = new Coordenada(x, y);
 
         // Jogador eliminado some do tabuleiro
-        boolean temP1 = this.p1.estaVivo() && this.p1.getPosicao().comparaCoordenadas(coordenada);
-        boolean temP2 = this.p2.estaVivo() && this.p2.getPosicao().comparaCoordenadas(coordenada);
+        boolean temP1 = this.p1.estaVivo() && this.p1.getPosicao().compararCoordenadas(coordenada);
+        boolean temP2 = this.p2.estaVivo() && this.p2.getPosicao().compararCoordenadas(coordenada);
 
         if (x == Tabuleiro.CENTRO && y == Tabuleiro.CENTRO) {
             return " C ";
@@ -140,35 +179,7 @@ public class Graficos {
         return this.tabuleiro.setorFoiVisitado(vizinha);
     }
 
-    // Imprime ao lado do tabuleiro a linha do(s) painel(is) de setor
-    private void imprimePaineis(int linhaPainel) {
-        if (linhaPainel <= 8) {
-            Coordenada posicaoP1 = this.p1.getPosicao();
-            Coordenada posicaoP2 = this.p2.getPosicao();
-
-            // Jogador eliminado nao tem painel
-            boolean p1Vivo = this.p1.estaVivo();
-            boolean p2Vivo = this.p2.estaVivo();
-
-            if (p1Vivo && p2Vivo && posicaoP1.comparaCoordenadas(posicaoP2)) {
-                // Os dois jogadores no mesmo setor: um painel so
-                System.out.print("     " + this.linhaPainel(posicaoP1, linhaPainel, true, true));
-            } else {
-                // Setores diferentes: um painel para cada jogador vivo
-                if (p1Vivo) {
-                    System.out.print("     " + this.linhaPainel(posicaoP1, linhaPainel, true, false));
-                }
-
-                if (p2Vivo) {
-                    System.out.print("     " + this.linhaPainel(posicaoP2, linhaPainel, false, true));
-                }
-            }
-        }
-
-        System.out.println();
-    }
-
-    // Uma linha do painel de um setor (sempre 15 caracteres)
+    // Uma linha do painel de um setor (sempre LARGURA_PAINEL caracteres)
     private String linhaPainel(Coordenada coordenada, int linhaPainel, boolean mostraP1, boolean mostraP2) {
         Setor setor = this.tabuleiro.getSetor(coordenada);
 
@@ -195,7 +206,8 @@ public class Graficos {
 
         switch (linhaPainel) {
             case 0:
-                return this.completarEspacos("Setor [" + (coordenada.getY() + 1) + "," + (coordenada.getX() + 1) + "]", 15);
+                return this.completarEspacos("Setor [" + (coordenada.getY() + 1) + "," + (coordenada.getX() + 1) + "]",
+                        LARGURA_PAINEL);
 
             case 2:
                 return "|------" + this.simboloPorta(coordenada, Direcao.Norte, "-") + "------|";
@@ -220,7 +232,8 @@ public class Graficos {
                 return "|------" + this.simboloPorta(coordenada, Direcao.Sul, "-") + "------|";
 
             default:
-                return "               ";
+                // Linha 1: espaco vazio entre o titulo e o desenho do setor
+                return this.completarEspacos("", LARGURA_PAINEL);
         }
     }
 

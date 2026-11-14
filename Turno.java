@@ -118,7 +118,7 @@ public class Turno {
         Setor setor = this.tabuleiro.getSetor(jogador.getPosicao());
 
         if (!setor.possuiInimigos()) {
-            this.mensagem = "Nao ha inimigos neste setor.\n";
+            this.mensagem = "Nao há inimigos neste setor.\n";
             return false;
         }
 

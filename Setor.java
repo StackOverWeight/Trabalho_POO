@@ -31,7 +31,7 @@ public class Setor {
     }
 
 
-    // Métodos get e set
+    // Metodos get e set
     public Coordenada getCoordenada(){
         return this.coordenada;
     }
@@ -65,7 +65,7 @@ public class Setor {
     }
     
 
-    // Métodos
+    // Metodos
     public void definirPorta(Direcao direcao, boolean aberta){
         this.portas.put(direcao, aberta);
     }

@@ -11,7 +11,7 @@ public class Jogador extends Entidade {
 
     protected Jogador(int ataque, int defesa){
         super(ataque, defesa);
-        // Todo jogador começa no centro do tabuleiro
+        // Todo jogador comeca no centro do tabuleiro
         this.posicao = new Coordenada(Tabuleiro.CENTRO, Tabuleiro.CENTRO);
     }
 

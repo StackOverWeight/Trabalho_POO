@@ -19,7 +19,7 @@ public enum Direcao {
                 return Leste;
 
             default:
-                throw new IllegalStateException("Direção inválida");
+                throw new IllegalStateException("Direcao invalida");
         }
     }
 }

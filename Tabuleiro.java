@@ -11,11 +11,11 @@ public class Tabuleiro {
         this.configurarPortas();
         this.configurarTiposSetores();
         this.posicionarFonteInfeccao();
-        // Centro começa visitado (portas visíveis), mas sem gerar inimigos
+        // Centro comeca visitado (portas visiveis), mas sem gerar inimigos
         this.getSetor(new Coordenada(CENTRO, CENTRO)).marcarComoVisitado();
     }
 
-    // Métodos get e set
+    // Metodos get e set
     public Setor getSetor(Coordenada coordenada) {
         if (!this.coordenadaValida(coordenada)) {
             throw new IllegalArgumentException("Coordenada fora dos limites do tabuleiro.");
@@ -24,7 +24,7 @@ public class Tabuleiro {
         return this.setores[coordenada.getX()][coordenada.getY()];
     }
 
-    // Métodos
+    // Metodos
     private void inicializarSetores(){
         for (int x = 0; x < TAMANHO; x++){
             for (int y = 0; y < TAMANHO; y++){

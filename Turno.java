@@ -15,7 +15,7 @@ public class Turno {
 
     private Jogador vencedor;
 
-    // Resultado das últimas ações, mostrado depois que a tela é redesenhada
+    // Resultado das ultimas acoes, mostrado depois que a tela e redesenhada
     private String mensagem;
 
     // Construtor
@@ -29,12 +29,12 @@ public class Turno {
         this.mensagem = "";
     }
 
-    // Métodos get
+    // Metodos get
     public Jogador getVencedor() {
         return this.vencedor;
     }
 
-    // Turno de um jogador (P1 ou P2): duas ações
+    // Turno de um jogador (P1 ou P2): duas acoes
     public void turnoJogador(Jogador jogador) {
         int acoes = 0;
 
@@ -56,7 +56,7 @@ public class Turno {
             System.out.print("Escolha: ");
             String opcao = this.lerEntrada();
 
-            // Ação inválida não é contada
+            // Acao invalida nao e contada
             if (this.executarAcao(jogador, opcao)) {
                 acoes++;
             }
@@ -83,7 +83,7 @@ public class Turno {
         }
     }
 
-    // Escolhe a ação. Devolve true se a ação foi realizada
+    // Escolhe a acao. Devolve true se a acao foi realizada
     private boolean executarAcao(Jogador jogador, String opcao) {
         switch (opcao) {
             case "1":
@@ -238,7 +238,7 @@ public class Turno {
             return true;
         }
 
-        // Setor novo: portas ficam visíveis e inimigos são gerados
+        // Setor novo: portas ficam visiveis e inimigos sao gerados
         this.tabuleiro.visitarSetor(novaPosicao);
 
         this.mensagem = this.nome(jogador) + " se movimentou.\n";
@@ -313,7 +313,7 @@ public class Turno {
         return "P2";
     }
 
-    // Lê uma linha digitada pelo usuário
+    // Le uma linha digitada pelo usuario
     private String lerEntrada() {
         return this.entrada.nextLine();
     }

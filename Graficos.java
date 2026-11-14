@@ -15,7 +15,7 @@ public class Graficos {
     }
 
     private void limparTela() {
-        // Limpa o ecrã e move o cursor para o canto superior esquerdo
+        // Limpa o ecra e move o cursor para o canto superior esquerdo
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -27,12 +27,12 @@ public class Graficos {
         // Letras vermelhas com fundo preto
         System.out.print(Cores.ANSI_RED + Cores.ANSI_BLACK_BACKGROUND);
 
-        // Título
+        // Titulo
         System.out.println("-----------------------------");
         System.out.println("|   Antivirus por um dia    |");
         System.out.println("-----------------------------");
 
-        // Números das colunas
+        // Numeros das colunas
         System.out.println("      1   2   3   4   5");
 
         // Borda superior (limite do tabuleiro: sempre parede)
@@ -48,11 +48,11 @@ public class Graficos {
             this.imprimeLinha(y);
         }
 
-        // Volta às cores normais do terminal
+        // Volta as cores normais do terminal
         System.out.print(Cores.ANSI_RESET);
     }
 
-    // Imprime colunas(tabuleiro, linha): conteúdo dos setores + portas/paredes laterais
+    // Imprime colunas(tabuleiro, linha): conteudo dos setores + portas/paredes laterais
     private void imprimeColunas(int linha) {
         System.out.print((linha + 1) + "   |");
 
@@ -88,7 +88,7 @@ public class Graficos {
         this.imprimePaineis(linha * 2 + 1);
     }
 
-    // Conteúdo de um setor (sempre 3 caracteres)
+    // Conteudo de um setor (sempre 3 caracteres)
     private String conteudoSetor(int x, int y) {
         Coordenada coordenada = new Coordenada(x, y);
 
@@ -119,7 +119,7 @@ public class Graficos {
         return "   ";
     }
 
-    // A porta só aparece se um dos dois setores ligados por ela já foi visitado
+    // A porta so aparece se um dos dois setores ligados por ela ja foi visitado
     private boolean portaVisivel(int x, int y, Direcao direcao) {
         Coordenada coordenada = new Coordenada(x, y);
 
@@ -146,12 +146,12 @@ public class Graficos {
             Coordenada posicaoP1 = this.p1.getPosicao();
             Coordenada posicaoP2 = this.p2.getPosicao();
 
-            // Jogador eliminado não tem painel
+            // Jogador eliminado nao tem painel
             boolean p1Vivo = this.p1.estaVivo();
             boolean p2Vivo = this.p2.estaVivo();
 
             if (p1Vivo && p2Vivo && posicaoP1.comparaCoordenadas(posicaoP2)) {
-                // Os dois jogadores no mesmo setor: um painel só
+                // Os dois jogadores no mesmo setor: um painel so
                 System.out.print("     " + this.linhaPainel(posicaoP1, linhaPainel, true, true));
             } else {
                 // Setores diferentes: um painel para cada jogador vivo
@@ -224,7 +224,7 @@ public class Graficos {
         }
     }
 
-    // "*" se o setor tem porta na direção; senão, o símbolo de parede
+    // "*" se o setor tem porta na direcao; senao, o simbolo de parede
     private String simboloPorta(Coordenada coordenada, Direcao direcao, String parede) {
         if (this.tabuleiro.temPorta(coordenada, direcao)) {
             return "*";
@@ -250,7 +250,7 @@ public class Graficos {
         return texto;
     }
 
-    // Completa o texto com espaços até o tamanho desejado
+    // Completa o texto com espacos ate o tamanho desejado
     private String completarEspacos(String texto, int tamanho) {
         for (int i = texto.length(); i < tamanho; i++) {
             texto = texto + " ";

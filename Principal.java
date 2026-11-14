@@ -1,8 +1,8 @@
 /*
- * Trabalho Prático - Paradigmas de Programação
+ * Trabalho Pratico - Paradigmas de Programacao
  * Arthur Paul Nickel - GRR20252825
- * Bruno Yuuki Hayashi - GRR...
- * Gabriel Dobrowolski Jorge - GRR...
+ * Bruno Yuuki Hayashi - GRR20253206
+ * Gabriel Dobrowolski Jorge - GRR20250938
  * Luiz Guilherme de Souza Mo - GRR...
  */
 public class Principal {
@@ -20,21 +20,13 @@ public class Principal {
     }
 
     public static void main (String[] args) {
-        /* Decisões temporárias  do programa (podem mudar) ========================================== */
-            //Leitura de ação de casos de erro são tratados nos turnos
-            //O laço que percorre os inimigos do setor está na main, mas poderia estar em turno
-            //Verificação de setor oculto dentro de turno, não dentro de atacar de jogador
-            //Movimentação dentro dos turnos
+        /* Inicializacao dos elementos do jogo */
 
-        //...
-
-        /* Inicialização dos elementos do jogo */
-
-        Jogador P1 = new Jogador();
-        JogadorSuporte P2 = new JogadorSuporte();
+        Jogador p1 = new Jogador();
+        JogadorSuporte p2 = new JogadorSuporte();
         Tabuleiro tabuleiro = new Tabuleiro();
-        Graficos graficos = new Graficos(tabuleiro, P1, P2);
-        Turno turno = new Turno(tabuleiro, P1, P2, graficos);
+        Graficos graficos = new Graficos(tabuleiro, p1, p2);
+        Turno turno = new Turno(tabuleiro, p1, p2, graficos);
 
         /* Loop principal do jogo */
 
@@ -61,9 +53,7 @@ public class Principal {
 
             ciclo++;
         }
-
-        /* Jogo terminou sem vencedores */
-
+        
         graficos.imprimirJogo();
 
         terminarJogo(turno.getVencedor(), p1, p2);

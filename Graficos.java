@@ -1,5 +1,3 @@
-//T: Rever nome
-
 public class Graficos {
 
     // Atributos
@@ -16,7 +14,7 @@ public class Graficos {
         this.p2 = p2;
     }
 
-    public void limparTela() {
+    private void limparTela() {
         // Limpa o ecrã e move o cursor para o canto superior esquerdo
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -39,13 +37,13 @@ public class Graficos {
 
         // Borda superior (limite do tabuleiro: sempre parede)
         System.out.print("    |");
-        for (int x = 0; x < 5; x++) {
+        for (int x = 0; x < Tabuleiro.TAMANHO; x++) {
             System.out.print("---|");
         }
         System.out.println();
 
         // Linhas do tabuleiro
-        for (int y = 0; y < 5; y++) {
+        for (int y = 0; y < Tabuleiro.TAMANHO; y++) {
             this.imprimeColunas(y);
             this.imprimeLinha(y);
         }
@@ -58,7 +56,7 @@ public class Graficos {
     private void imprimeColunas(int linha) {
         System.out.print((linha + 1) + "   |");
 
-        for (int x = 0; x < 5; x++) {
+        for (int x = 0; x < Tabuleiro.TAMANHO; x++) {
             System.out.print(this.conteudoSetor(x, linha));
 
             if (this.portaVisivel(x, linha, Direcao.Leste)) {
@@ -75,7 +73,7 @@ public class Graficos {
     private void imprimeLinha(int linha) {
         System.out.print("    |");
 
-        for (int x = 0; x < 5; x++) {
+        for (int x = 0; x < Tabuleiro.TAMANHO; x++) {
             System.out.print("-");
 
             if (this.portaVisivel(x, linha, Direcao.Sul)) {
@@ -92,13 +90,13 @@ public class Graficos {
 
     // Conteúdo de um setor (sempre 3 caracteres)
     private String conteudoSetor(int x, int y) {
-        Coordenada coordenada = new Coordenada((byte) x, (byte) y);
+        Coordenada coordenada = new Coordenada(x, y);
 
         // Jogador eliminado some do tabuleiro
         boolean temP1 = this.p1.estaVivo() && this.p1.getPosicao().comparaCoordenadas(coordenada);
         boolean temP2 = this.p2.estaVivo() && this.p2.getPosicao().comparaCoordenadas(coordenada);
 
-        if (x == 2 && y == 2) {
+        if (x == Tabuleiro.CENTRO && y == Tabuleiro.CENTRO) {
             return " C ";
         }
 
@@ -123,7 +121,7 @@ public class Graficos {
 
     // A porta só aparece se um dos dois setores ligados por ela já foi visitado
     private boolean portaVisivel(int x, int y, Direcao direcao) {
-        Coordenada coordenada = new Coordenada((byte) x, (byte) y);
+        Coordenada coordenada = new Coordenada(x, y);
 
         if (!this.tabuleiro.temPorta(coordenada, direcao)) {
             return false;

@@ -1,8 +1,10 @@
 import java.util.Random;
 
 public class Sorteador{
-    public int sorteia(int min, int max){
-        Random aleat = new Random();
-        return aleat.nextInt(min, max+1);
+    private static final Random aleat = new Random();
+
+    // Sorteia um número inteiro entre min e max (incluindo os dois)
+    public static int sorteia(int min, int max){
+        return aleat.nextInt(max - min + 1) + min;
     }
 }

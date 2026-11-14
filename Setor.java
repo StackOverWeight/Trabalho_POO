@@ -2,7 +2,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Setor {
      
@@ -88,12 +87,10 @@ public class Setor {
     }
 
     private void gerarInimigos() {
-        Random random = new Random();
-
-        int quantidade = random.nextInt(3) + 1;
+        int quantidade = Sorteador.sorteia(1, 3);
 
         for (int i = 0; i < quantidade; i++) {
-            int atributo = random.nextInt(3) + 1;
+            int atributo = Sorteador.sorteia(1, 3);
 
             Inimigo inimigo = new Inimigo(atributo, atributo);
 

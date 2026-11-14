@@ -1,18 +1,18 @@
 public class Coordenada {
-    private final byte x; // coluna
-    private final byte y; // linha
+    private final int x; // coluna
+    private final int y; // linha
 
-    public Coordenada(byte x, byte y) {
+    public Coordenada(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public byte getX(){
+    public int getX(){
         return this.x;
     }
 
 
-    public byte getY(){
+    public int getY(){
         return this.y;
     }
 

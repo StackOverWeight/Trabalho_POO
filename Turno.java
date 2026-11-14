@@ -69,15 +69,11 @@ public class Turno {
             return;
         }
 
-        int defesaAntes = jogador.getDefesa();
-
-        inimigo.atacar(jogador, setor);
-
         String texto = "Inimigo " + inimigo.getAtaque() + "/" + inimigo.getDefesa();
 
-        if (jogador.getDefesa() < defesaAntes) {
+        if (this.resolverAtaque(inimigo, jogador, setor)) {
             this.mensagem = this.mensagem + texto + " acertou " + this.nome(jogador)
-                    + " (-" + (defesaAntes - jogador.getDefesa()) + " DEF)\n";
+                    + " (-" + inimigo.getAtaque() + " DEF)\n";
         } else {
             this.mensagem = this.mensagem + texto + " errou o ataque em " + this.nome(jogador) + "\n";
         }
@@ -118,7 +114,7 @@ public class Turno {
         Setor setor = this.tabuleiro.getSetor(jogador.getPosicao());
 
         if (!setor.possuiInimigos()) {
-            this.mensagem = "Nao há inimigos neste setor.\n";
+            this.mensagem = "Nao ha inimigos neste setor.\n";
             return false;
         }
 
@@ -147,12 +143,8 @@ public class Turno {
             return false;
         }
 
-        int defesaAntes = alvo.getDefesa();
-
-        jogador.atacar(alvo, setor);
-
-        if (alvo.getDefesa() < defesaAntes) {
-            this.mensagem = this.nome(jogador) + " acertou o inimigo (-" + (defesaAntes - alvo.getDefesa()) + " DEF).\n";
+        if (this.resolverAtaque(jogador, alvo, setor)) {
+            this.mensagem = this.nome(jogador) + " acertou o inimigo (-" + jogador.getAtaque() + " DEF).\n";
         } else {
             this.mensagem = this.nome(jogador) + " errou o ataque (setor oculto).\n";
         }
@@ -280,6 +272,16 @@ public class Turno {
                 this.mensagem = "Opcao invalida.\n";
                 return false;
         }
+    }
+
+    // Qualquer Atacante (Jogador ou Inimigo) ataca um alvo. Devolve true se acertou
+    private boolean resolverAtaque(Atacante atacante, Entidade alvo, Setor setor) {
+        int defesaAntes = alvo.getDefesa();
+
+        // O Java executa o atacar do tipo real do objeto (Jogador ou Inimigo)
+        atacante.atacar(alvo, setor);
+
+        return alvo.getDefesa() < defesaAntes;
     }
 
     // Remove do setor os inimigos com DEF <= 0

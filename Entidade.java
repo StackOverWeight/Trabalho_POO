@@ -1,7 +1,7 @@
-public abstract class Entidade {
+public abstract class Entidade implements Atacante {
 
-    protected int ataque;
-    protected int defesa;
+    private int ataque;
+    private int defesa;
 
     public Entidade(int ataque, int defesa){
         this.ataque = ataque;
@@ -13,10 +13,6 @@ public abstract class Entidade {
             return true;
 
         return false;
-    }
-
-    public void setAtaque(int ataque){
-        this.ataque = ataque;
     }
 
     public void setDefesa(int defesa){

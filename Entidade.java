@@ -1,5 +1,3 @@
-// Base de tudo que luta no jogo (jogadores e inimigos): ATK, DEF e estado de vida.
-// E abstrata: o metodo atacar (da interface Atacante) e implementado pelas filhas
 public abstract class Entidade implements Atacante {
 
     // Atributos

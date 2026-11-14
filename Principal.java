@@ -31,12 +31,9 @@ public class Principal {
         /* Inicialização dos elementos do jogo */
 
         Jogador P1 = new Jogador();
-        Jogador P2 = new JogadorSuporte();
+        JogadorSuporte P2 = new JogadorSuporte();
 
         Tabuleiro tabuleiro = new Tabuleiro();
-
-        P1.setPosicao(new Coordenada(3, 3));
-        P2.setPosicao(new Coordenada(3, 3));
 
         // Entra em um ciclo - While de 25 ciclos
         // Condições extras: foi achado fonte de infecção e pelo menos 1 jogador vivo
@@ -46,7 +43,7 @@ public class Principal {
             /* Turno dos jogadores */
 
             if (P1.estaVivo()) {
-                Turno turno = new Turno(tabuleiro, P1, (JogadorSuporte) P2, new Graficos(tabuleiro, P1, P2));
+                Turno turno = new Turno(tabuleiro, P1, P2, new Graficos(tabuleiro, P1, P2));
                 turno.turnoJogador(P1);
                 if (tabuleiro.ehFonteInfeccao(P1.getPosicao())) { //Verifica se P1 ganhou
                     terminarJogo(P1, P2, (byte) 1);
@@ -55,7 +52,7 @@ public class Principal {
             }
 
             if (P2.estaVivo()) {
-                Turno turno = new Turno(tabuleiro, P2, (JogadorSuporte) P1, new Graficos(tabuleiro, P1, P2));
+                Turno turno = new Turno(tabuleiro, P1, P2, new Graficos(tabuleiro, P1, P2));
                 turno.turnoJogador(P2);
                 if (tabuleiro.ehFonteInfeccao(P2.getPosicao())) { //Verifica se P2 ganhou
                     terminarJogo(P1, P2, (byte) 2);

@@ -5,7 +5,7 @@ public class JogadorSuporte extends Jogador {
     //this.ataque = ATK_P_SUPORTE (1)
     //this.defesa = DEF_P_SUPORTE (7)
     public JogadorSuporte() {
-        super(1, 7, new Coordenada((byte) 3, (byte) 3));
+        super(1, 7, new Coordenada((byte) 2, (byte) 2));
     }
 
     public void recuperar(Jogador alvo){

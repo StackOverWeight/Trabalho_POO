@@ -12,7 +12,7 @@ public class Jogador extends Entidade implements Atacante{ //Q: Ou implements?
 
     public Jogador(){
         super(2, 6);
-        this.posicao = new Coordenada((byte) 3, (byte) 3);
+        this.posicao = new Coordenada((byte) 2, (byte) 2);
     }
 
     protected Jogador(int ataque, int defesa, Coordenada posicao){

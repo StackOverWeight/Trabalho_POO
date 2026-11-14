@@ -10,7 +10,8 @@ public class Tabuleiro {
         this.configurarPortas();
         this.configurarTiposSetores();
         this.posicionarFonteInfeccao();
-        this.visitarSetor(new Coordenada((byte) 2, (byte) 2));
+        // Centro começa visitado (portas visíveis), mas sem gerar inimigos
+        this.getSetor(new Coordenada((byte) 2, (byte) 2)).marcarComoVisitado();
     }
 
     // Métodos get e set

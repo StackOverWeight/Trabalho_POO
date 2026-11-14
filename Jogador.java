@@ -51,10 +51,11 @@ public class Jogador extends Entidade {
     }
 
     // Sorteia 1 a 6: 1-3 nada, 4 = +1 DEF, 5 = +2 DEF, 6 = todos os inimigos do setor perdem 1 DEF.
-    // No setor privado nao e possivel procurar
-    public void procurar(Setor setor) {
+    // No setor privado nao e possivel procurar.
+    // Devolve o numero sorteado (0 se nao procurou), para o Turno saber o que foi encontrado
+    public int procurar(Setor setor) {
         if (setor.getTipo() == TipoSetor.Privado) {
-            return;
+            return 0;
         }
 
         int numero = Sorteador.sortear(1, 6);
@@ -74,5 +75,7 @@ public class Jogador extends Entidade {
                 this.setDefesa(this.getDefesa() + 1);
                 break;
         }
+
+        return numero;
     }
 }

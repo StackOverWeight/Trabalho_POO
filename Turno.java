@@ -182,21 +182,42 @@ public class Turno {
             return false;
         }
 
-        // Compara antes e depois para saber qual item foi encontrado
-        int defesaAntes = jogador.getDefesa();
-        int defesaInimigosAntes = this.somaDefesaInimigos(setor);
+        // O numero sorteado diz qual item foi encontrado
+        int numero = jogador.procurar(setor);
 
-        jogador.procurar(setor);
+        switch (numero) {
+            case 4:
+                this.mensagem = this.nome(jogador) + " encontrou um item: +1 DEF.\n";
+                break;
 
-        if (jogador.getDefesa() > defesaAntes) {
-            this.mensagem = this.nome(jogador) + " encontrou um item: +" + (jogador.getDefesa() - defesaAntes) + " DEF.\n";
-        } else if (this.somaDefesaInimigos(setor) < defesaInimigosAntes) {
-            this.mensagem = this.nome(jogador) + " encontrou um item: todos os inimigos perderam 1 DEF.\n";
-        } else {
-            this.mensagem = this.nome(jogador) + " nao encontrou nada.\n";
+            case 5:
+                this.mensagem = this.nome(jogador) + " encontrou um item: +2 DEF.\n";
+                break;
+
+            case 6:
+                if (setor.possuiInimigos()) {
+                    this.mensagem = this.nome(jogador) + " encontrou um item: todos os inimigos perderam 1 DEF.\n";
+                } else {
+                    this.mensagem = this.nome(jogador) + " encontrou um item que tira 1 DEF dos inimigos, mas nao ha inimigos no setor.\n";
+                }
+                break;
+
+            default:
+                this.mensagem = this.nome(jogador) + " nao encontrou nada.\n";
+                break;
         }
 
+        // Inimigos que morreram com o item (6) saem do setor
+        int inimigosAntes = setor.getInimigos().size();
+
         this.removerMortos(setor);
+
+        int eliminados = inimigosAntes - setor.getInimigos().size();
+
+        if (eliminados > 0) {
+            this.mensagem = this.mensagem + eliminados + " inimigo(s) eliminado(s)!\n";
+        }
+
         return true;
     }
 
@@ -311,17 +332,6 @@ public class Turno {
         }
     }
 
-    // Soma da DEF de todos os inimigos do setor
-    private int somaDefesaInimigos(Setor setor) {
-        int soma = 0;
-
-        for (Inimigo inimigo : setor.getInimigos()) {
-            soma = soma + inimigo.getDefesa();
-        }
-
-        return soma;
-    }
-
     // Nome do jogador na tela
     private String nome(Jogador jogador) {
         if (jogador == this.p1) {
@@ -331,8 +341,15 @@ public class Turno {
         return "P2";
     }
 
-    // Le uma linha digitada pelo usuario
+    // Le uma linha digitada pelo usuario.
+    // Se a entrada acabar (ex.: Ctrl+Z / Ctrl+D), encerra o jogo sem erro
     private String lerEntrada() {
+        if (!this.entrada.hasNextLine()) {
+            System.out.println();
+            System.out.println("Entrada encerrada. Fim do jogo.");
+            System.exit(0);
+        }
+
         return this.entrada.nextLine();
     }
 }

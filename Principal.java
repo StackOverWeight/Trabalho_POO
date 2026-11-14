@@ -1,22 +1,22 @@
+/*
+ * Trabalho Prático - Paradigmas de Programação
+ * Arthur Paul Nickel - GRR20252825
+ * Bruno Yuuki Hayashi - GRR...
+ * Gabriel Dobrowolski Jorge - GRR...
+ * Luiz Guilherme de Souza Mo - GRR...
+ */
 public class Principal {
 
-    /* Status do jogo:
-     *  0 - Jogo chegou a 25 turnos e não houve vitória de nenhum jogador
-     *  1 - P1 venceu (achou a fonte de infecção)
-     *  2 - P2 venceu (achou a fonte de infecção)
-     **/
-    public static void terminarJogo(Jogador P1, Jogador P2, byte status) {
-        if (status == 0) {
-            System.out.println("O jogo terminou sem vencedores.");
-        } else if (status == 1) {
+    public static void terminarJogo(Jogador vencedor, Jogador p1, JogadorSuporte p2) {
+        if (vencedor == p1) {
             System.out.println("P1 venceu o jogo!");
-        } else if (status == 2) {
+        } else if (vencedor == p2) {
             System.out.println("P2 venceu o jogo!");
+        } else if (!p1.estaVivo() && !p2.estaVivo()) {
+            System.out.println("Derrota: os dois jogadores foram eliminados.");
+        } else {
+            System.out.println("Derrota: os 25 ciclos acabaram.");
         }
-
-        System.out.println("Status dos jogadores:");
-        System.out.println("P1: " + (P1.estaVivo() ? "Vivo" : "Morto"));
-        System.out.println("P2: " + (P2.estaVivo() ? "Vivo" : "Morto"));
     }
 
     public static void main (String[] args) {
@@ -32,52 +32,41 @@ public class Principal {
 
         Jogador P1 = new Jogador();
         JogadorSuporte P2 = new JogadorSuporte();
-
         Tabuleiro tabuleiro = new Tabuleiro();
+        Graficos graficos = new Graficos(tabuleiro, P1, P2);
+        Turno turno = new Turno(tabuleiro, P1, P2, graficos);
 
-        // Entra em um ciclo - While de 25 ciclos
-        // Condições extras: foi achado fonte de infecção e pelo menos 1 jogador vivo
-        int i = 0;
-        while (i < 25 && (P1.estaVivo() || P2.estaVivo())) {
+        /* Loop principal do jogo */
 
-            /* Turno dos jogadores */
+        int ciclo = 0;
+        while (ciclo < 25 && (p1.estaVivo() || p2.estaVivo()) && turno.getVencedor() == null) {
+            turno.turnoJogador(p1);
 
-            if (P1.estaVivo()) {
-                Turno turno = new Turno(tabuleiro, P1, P2, new Graficos(tabuleiro, P1, P2));
-                turno.turnoJogador(P1);
-                if (tabuleiro.ehFonteInfeccao(P1.getPosicao())) { //Verifica se P1 ganhou
-                    terminarJogo(P1, P2, (byte) 1);
-                    return;
-                }
-            }
-
-            if (P2.estaVivo()) {
-                Turno turno = new Turno(tabuleiro, P1, P2, new Graficos(tabuleiro, P1, P2));
-                turno.turnoJogador(P2);
-                if (tabuleiro.ehFonteInfeccao(P2.getPosicao())) { //Verifica se P2 ganhou
-                    terminarJogo(P1, P2, (byte) 2);
-                    return;
-                }
-            }
+            turno.turnoJogador(p2);
 
             /* Turno dos inimigos - cada inimigo ataca 1 vez cada jogador */
 
-            if (P1.estaVivo()) {
-                for (Inimigo inimigo : tabuleiro.getSetor(P1.getPosicao()).getInimigos()) {
-                    Turno turno = new Turno(tabuleiro, P1, (JogadorSuporte) P2, new Graficos(tabuleiro, P1, P2));
-                    turno.turnoInimigo(P1, inimigo, tabuleiro.getSetor(P1.getPosicao()));
+            if (turno.getVencedor() == null) {
+                
+                Setor setorP1 = tabuleiro.getSetor(p1.getPosicao());
+                for (Inimigo inimigo : setorP1.getInimigos()) {
+                    turno.turnoInimigo(p1, inimigo, setorP1);
+                }
+
+                Setor setorP2 = tabuleiro.getSetor(p2.getPosicao());
+                for (Inimigo inimigo : setorP2.getInimigos()) {
+                    turno.turnoInimigo(p2, inimigo, setorP2);
                 }
             }
 
-            if (P2.estaVivo()) {
-                for (Inimigo inimigo : tabuleiro.getSetor(P2.getPosicao()).getInimigos()) {
-                    Turno turno = new Turno(tabuleiro, P2, (JogadorSuporte) P1, new Graficos(tabuleiro, P1, P2));
-                    turno.turnoInimigo(P2, inimigo, tabuleiro.getSetor(P2.getPosicao()));
-                }
-            }
+            ciclo++;
         }
 
         /* Jogo terminou sem vencedores */
-        terminarJogo(P1, P2, (byte) 0);
+
+        graficos.imprimirJogo();
+
+        terminarJogo(turno.getVencedor(), p1, p2);
+        turno.encerrar();
     }
 }

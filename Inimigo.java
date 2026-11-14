@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Inimigo extends Entidade implements Atacante{
     // Bruno: fiz a estrutura da classe pois preciso que seja assim
     public Inimigo(int ataque, int defesa){
@@ -8,8 +6,8 @@ public class Inimigo extends Entidade implements Atacante{
 
     @Override
     public void atacar(Entidade alvo, Setor setor) {
-        Random aleat = new Random();
-        int num = aleat.nextInt(1, 7);
+        Sorteador sorteador = new Sorteador();
+        int num = sorteador.sorteia(1,6);
         if(num % 2 == 0) 
             alvo.setDefesa(alvo.getDefesa() - this.getAtaque());
     }

@@ -1,4 +1,3 @@
-import java.util.Random;
 public class Jogador extends Entidade implements Atacante{ //Q: Ou implements?
 
     private Coordenada posicao;
@@ -46,8 +45,8 @@ public class Jogador extends Entidade implements Atacante{ //Q: Ou implements?
     @Override
     public void atacar(Entidade alvo, Setor setor){
         if(setor.getTipo() == TipoSetor.Oculto){
-            Random aleat = new Random();
-            int num = aleat.nextInt(1,7);
+            Sorteador sorteador = new Sorteador();
+            int num = sorteador.sorteia(1, 6);
 
             if(num % 2 != 0)
                 return;
@@ -115,8 +114,8 @@ public class Jogador extends Entidade implements Atacante{ //Q: Ou implements?
         if(setor.getTipo() == TipoSetor.Privado)
             return;
 
-        Random aleat = new Random();
-        int num = aleat.nextInt(1, 7);
+        Sorteador sorteador = new Sorteador();
+        int num = sorteador.sorteia(1, 6);
         switch(num){
         case 6:
             for(Inimigo inimigo : setor.getInimigos())
